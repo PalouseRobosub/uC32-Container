@@ -2,7 +2,7 @@
 
 There are a couple ways you can do this.
 
-Follow the manual installation if you would like to have PlatformIO Core installed
+Follow the manual installation if you would like to have PlatformIO Core installed directly on your system. Otherwise skip to the container section and try that out.
 
 ## Manual installation
 1. Make new directory for embedded development shenanigans
