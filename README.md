@@ -42,7 +42,9 @@ I would highly recommend reading through the containerfile to get an idea of wha
 You can use either podman or docker to build the container. Navigate to the directory where `Containerfile` is downloaded and run the corresponding command.
 ```bash
 podman build -t uc32-container .
-docker build -t uc32-container .
+```
+```bash
+docker build --file Containerfile -t uc32-container .
 ```
 This will build the Containerfile in the current directory and tag it with `uc32-container` (which is the name you use to run the built container)
 
@@ -94,7 +96,10 @@ SELinux requires a boolean to be set to permit containers to access to devices
 
 ## Mac Specific
 
-TODO
+If you have an Apple Silicon mac: Build with the option `--platform linux/amd64` and make sure that Rosetta emulation is enabled for containers.
+
+Other than that, it seems like it might not be possible to directly pass a serial device into Docker on MacOS.
+May be worth trying to run the container within a VM and pass through to the VM to the container?
 
 ## Windows specific
 
