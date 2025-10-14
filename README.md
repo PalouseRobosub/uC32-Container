@@ -89,6 +89,12 @@ SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", \
 ```
 tty is the subsystem for serial devices, and serial is what we need to pass into the container in order for PlatformIO to be able to write to the uC32.
 
+3. After changing udev rules, they must be reloaded before they apply
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
 
 ### SELinux
 SELinux requires a boolean to be set to permit containers to access to devices
