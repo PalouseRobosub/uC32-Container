@@ -16,9 +16,13 @@ Follow the manual installation if you would like to have PlatformIO Core install
 
     The following should install that on debian-based linux if you do not already have it installed:
     ```bash
-    dpkg --add-architecture i386
-    apt update
-    apt install libc6:i386
+    sudo dpkg --add-architecture i386
+    ```
+    ```bash
+    sudo apt update
+    ```
+    ```bash
+    sudo apt install libc6:i386
     ```
 6. Project structure:
     - `platformio.ini` has the generated config for your board
@@ -53,7 +57,7 @@ This will build the Containerfile in the current directory and tag it with `uc32
 The container is set up to immediately run one PlatformIO command when it is started and then exit.
 
 The command I use is:
-```
+```bash
 podman run --rm -v ~/Robosub/project_name:/project:Z --device=/dev/container-uc32:/dev/ttyUSB0 --group-add keep-groups uc32-container
 ```
 Explanation:
@@ -75,7 +79,7 @@ while running the containerized version, don't worry about it. udev rules can't 
 udev rules are needed for running the container on linux. The below udev rules can be installed in `/etc/udev/rules.d/` in a file named `71-platformio-uc32-udev.rules` or similar (the first number is important so ymmv if you change it). Adding udev rules here typically requires `sudo` privileges, but then you can use your text editor of choice to make and put these rules into the file.
 1. A udev rule to let non-root users access the uC32 is necessary on linux
 
-```
+```udev
 ACTION!="remove", SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", \
   ATTRS{idProduct}=="6001", MODE="0660", TAG+="uaccess"
 ```
@@ -93,12 +97,16 @@ tty is the subsystem for serial devices, and serial is what we need to pass into
 
 ```bash
 sudo udevadm control --reload-rules
+```
+```bash
 sudo udevadm trigger
 ```
 
 ### SELinux
 SELinux requires a boolean to be set to permit containers to access to devices
-- `setsebool -P container_use_devices 1`
+```bash
+setsebool -P container_use_devices 1
+```
 
 ## Mac Specific
 
